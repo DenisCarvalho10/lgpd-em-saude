@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<style>
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Segoe UI", Arial, sans-serif; color: #1c2733; font-size: 12pt; line-height: 1.6; }
+  .page { width: 210mm; min-height: 297mm; padding: 22mm 20mm; position: relative; page-break-after: always; }
+  .page:last-child { page-break-after: auto; }
+
+  /* Capa */
+  .cover { background: linear-gradient(160deg, #0a2240 0%, #061528 100%); color: #fff; display: flex; flex-direction: column; justify-content: center; padding: 30mm 22mm; }
+  .cover .kicker { color: #e2c27a; letter-spacing: 3px; text-transform: uppercase; font-size: 11pt; font-weight: 700; margin-bottom: 14mm; }
+  .cover h1 { font-size: 32pt; line-height: 1.12; font-weight: 800; margin-bottom: 8mm; }
+  .cover h1 span { color: #e2c27a; }
+  .cover .sub { font-size: 14pt; color: #cdd8e6; max-width: 150mm; margin-bottom: 20mm; }
+  .cover .bar { width: 60mm; height: 3px; background: #1fa98f; margin-bottom: 8mm; }
+  .cover .author { font-size: 12pt; color: #aebccd; }
+  .cover .author strong { color: #fff; display: block; font-size: 14pt; margin-bottom: 2mm; }
+
+  h2 { color: #0a2240; font-size: 19pt; margin: 0 0 5mm; padding-bottom: 3mm; border-bottom: 2px solid #e6eaf0; }
+  h2 .num { color: #1fa98f; }
+  h3 { color: #0a2240; font-size: 13.5pt; margin: 7mm 0 2mm; }
+  p { margin-bottom: 4mm; }
+  ul { margin: 0 0 5mm 6mm; }
+  li { margin-bottom: 2.5mm; }
+  .lead { font-size: 13pt; color: #5a6776; font-style: italic; margin-bottom: 7mm; }
+  .tip { background: #f0faf7; border-left: 4px solid #1fa98f; padding: 5mm 6mm; border-radius: 0 8px 8px 0; margin: 5mm 0; color: #0a2240; }
+  .eyebrow { color: #14826e; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; font-size: 10pt; margin-bottom: 4mm; }
+  .doc-item { margin-bottom: 6mm; }
+  .doc-item .n { display: inline-block; width: 9mm; height: 9mm; line-height: 9mm; text-align: center; background: #0a2240; color: #e2c27a; border-radius: 50%; font-weight: 700; margin-right: 3mm; font-size: 11pt; }
+  .doc-item .t { font-weight: 700; color: #0a2240; font-size: 12.5pt; }
+  .pagefoot { position: absolute; bottom: 12mm; left: 20mm; right: 20mm; display: flex; justify-content: space-between; font-size: 9pt; color: #9aa6b4; border-top: 1px solid #e6eaf0; padding-top: 3mm; }
+
+  /* CTA final */
+  .cta { background: linear-gradient(160deg, #0a2240 0%, #061528 100%); color: #fff; display: flex; flex-direction: column; justify-content: center; padding: 30mm 22mm; }
+  .cta h2 { color: #fff; border: none; font-size: 24pt; }
+  .cta p { color: #cdd8e6; font-size: 13pt; }
+  .cta .box { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.14); border-radius: 10px; padding: 8mm; margin-top: 8mm; }
+  .cta .box .lbl { color: #e2c27a; font-weight: 700; font-size: 10pt; text-transform: uppercase; letter-spacing: 1px; }
+  .cta .box .val { font-size: 15pt; font-weight: 700; margin: 1mm 0 4mm; }
+</style>
+</head>
+<body>
+
+<!-- CAPA -->
+<div class="page cover">
+  <div class="kicker">E-book gratuito · LGPD na Saúde</div>
+  <div class="bar"></div>
+  <h1>Guia da LGPD no <span>Ambiente Hospitalar</span></h1>
+  <p class="sub">Os 10 passos essenciais para adequar hospitais e clínicas à Lei Geral de Proteção de Dados e proteger os dados sensíveis dos pacientes.</p>
+  <div class="author">
+    <strong>Denis Carvalho dos Santos Vieira</strong>
+    Advogado · OAB/GO 53.904 · Especialista em Direito Médico e da Saúde<br>
+    www.lgpdesaude.com.br
+  </div>
+</div>
+
+<!-- INTRO -->
+<div class="page">
+  <div class="eyebrow">Antes de começar</div>
+  <h2>Por que este guia existe</h2>
+  <p class="lead">Na saúde, proteger dados deixou de ser uma questão de tecnologia — é, antes de tudo, uma questão de confiança e de responsabilidade jurídica.</p>
+  <p>Hospitais, clínicas, laboratórios e operadoras tratam diariamente os dados mais sensíveis que existem: diagnósticos, prontuários, exames, histórico de doenças. A Lei Geral de Proteção de Dados (Lei nº 13.709/2018) classifica essas informações como <strong>dados pessoais sensíveis</strong> (art. 11), submetendo-as ao regime mais rígido da lei.</p>
+  <p>O descumprimento expõe a instituição a multas de até 2% do faturamento (limitadas a R$ 50 milhões por infração), à obrigação de comunicar incidentes à ANPD e aos pacientes, e a ações indenizatórias — sem falar no dano reputacional, muitas vezes o mais caro de todos.</p>
+  <div class="tip"><strong>A boa notícia:</strong> a adequação pode ser feita por etapas, no ritmo da instituição. Este guia mostra os 10 passos que mais reduzem risco e constroem uma cultura sólida de proteção de dados.</div>
+  <p>Use-o como um mapa. Ele não substitui uma orientação jurídica individualizada, mas vai ajudar a enxergar onde a sua instituição está exposta.</p>
+  <div class="pagefoot"><span>Guia da LGPD no Ambiente Hospitalar</span><span>Denis Carvalho Advocacia</span></div>
+</div>
+
+<!-- PASSOS 1-5 -->
+<div class="page">
+  <div class="eyebrow">O caminho da adequação</div>
+  <h2>Os 10 passos essenciais</h2>
+
+  <div class="doc-item"><span class="n">1</span><span class="t">Diagnóstico (gap analysis)</span>
+    <p>Avalie o estágio atual da instituição: como os dados entram, circulam, são guardados e descartados, e onde estão os maiores riscos. Sem esse retrato, qualquer medida é no escuro.</p></div>
+
+  <div class="doc-item"><span class="n">2</span><span class="t">Mapeamento de dados (data mapping)</span>
+    <p>Faça o inventário dos fluxos de dados de pacientes e colaboradores, registrando as operações de tratamento. É a base de todo o programa de privacidade.</p></div>
+
+  <div class="doc-item"><span class="n">3</span><span class="t">Definição das bases legais</span>
+    <p>Cada tratamento precisa de um fundamento legal. Para a assistência, aplica-se a tutela da saúde; para marketing e pesquisa, geralmente é necessário consentimento específico.</p></div>
+
+  <div class="doc-item"><span class="n">4</span><span class="t">Políticas e avisos de privacidade</span>
+    <p>Política de privacidade, aviso ao paciente, termos de consentimento e política de retenção, redigidos para a realidade da instituição — não modelos genéricos.</p></div>
+
+  <div class="doc-item"><span class="n">5</span><span class="t">Controle de acesso e prontuário</span>
+    <p>Perfis de acesso por função, trilha de auditoria e regras claras de uso do prontuário eletrônico. Ninguém deve ver mais do que precisa para o seu trabalho.</p></div>
+
+  <div class="pagefoot"><span>Guia da LGPD no Ambiente Hospitalar</span><span>Denis Carvalho Advocacia</span></div>
+</div>
+
+<!-- PASSOS 6-10 -->
+<div class="page">
+  <div class="doc-item"><span class="n">6</span><span class="t">Segurança da informação</span>
+    <p>Criptografia, autenticação forte, backups testados e segregação de ambientes — medidas proporcionais à sensibilidade dos dados de saúde.</p></div>
+
+  <div class="doc-item"><span class="n">7</span><span class="t">Contratos com fornecedores (operadores)</span>
+    <p>Sistemas, nuvem, laboratórios e empresas de cobrança que acessam dados precisam de cláusulas de proteção de dados e definição de responsabilidades.</p></div>
+
+  <div class="doc-item"><span class="n">8</span><span class="t">Regras de uso do WhatsApp</span>
+    <p>Mensagens com exames e laudos são um dos maiores pontos de risco. Defina o que pode e o que não pode trafegar, e por quais canais.</p></div>
+
+  <div class="doc-item"><span class="n">9</span><span class="t">Plano de resposta a incidentes</span>
+    <p>Tenha papéis definidos, fluxo de comunicação e modelos prontos para agir em caso de vazamento — incluindo a comunicação à ANPD e aos titulares no prazo.</p></div>
+
+  <div class="doc-item"><span class="n">10</span><span class="t">Encarregado (DPO), treinamento e governança</span>
+    <p>Indique um encarregado, treine todas as equipes e estabeleça revisões periódicas. Conformidade é processo contínuo, não evento único.</p></div>
+
+  <div class="tip"><strong>Regra de ouro:</strong> conformidade precisa ser demonstrável. Documente cada decisão — é isso que protege a instituição em uma fiscalização e constrói a confiança dos pacientes.</div>
+
+  <div class="pagefoot"><span>Guia da LGPD no Ambiente Hospitalar</span><span>Denis Carvalho Advocacia</span></div>
+</div>
+
+<!-- CTA -->
+<div class="page cta">
+  <div class="kicker" style="color:#e2c27a;letter-spacing:3px;text-transform:uppercase;font-size:11pt;font-weight:700;margin-bottom:10mm">Próximo passo</div>
+  <h2>Vamos adequar a sua instituição?</h2>
+  <p>Se você quer fazer o diagnóstico, estruturar a documentação ou contar com um encarregado externo especializado em saúde, fale diretamente comigo. A primeira orientação é sem compromisso.</p>
+  <div class="box">
+    <div class="lbl">WhatsApp</div>
+    <div class="val">(62) 99258-6422</div>
+    <div class="lbl">Telefone</div>
+    <div class="val">(64) 99945-2151</div>
+    <div class="lbl">E-mail</div>
+    <div class="val">contato@deniscarvalhoadvocacia.com.br</div>
+    <div class="lbl">Site</div>
+    <div class="val">www.lgpdesaude.com.br</div>
+  </div>
+  <p style="margin-top:10mm;font-size:10pt;color:#9fb0c4">Denis Carvalho dos Santos Vieira — OAB/GO 53.904. Material de caráter informativo, em conformidade com o Provimento nº 205/2021 do CFOAB. Não constitui consulta jurídica nem promessa de resultado.</p>
+</div>
+
+</body>
+</html>
