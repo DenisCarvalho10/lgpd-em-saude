@@ -111,9 +111,9 @@ ul { margin: 0; padding: 0; list-style: none; }
   .site-header { background: rgba(255, 255, 255, .92); backdrop-filter: saturate(180%) blur(10px); }
 }
 .site-header.scrolled { box-shadow: var(--shadow-sm); background: rgba(255, 255, 255, .99); }
-.site-header .nav { display: flex; align-items: center; justify-content: space-between; gap: 1.2rem; min-height: 104px; }
+.site-header .nav { display: flex; align-items: center; justify-content: space-between; gap: 1.2rem; min-height: 92px; }
 .brand { flex: none; display: inline-flex; }
-.brand img { height: 86px; width: auto; max-width: none; }
+.brand img { height: 74px; width: auto; max-width: none; }
 .nav-links { display: flex; align-items: center; gap: 1.7rem; }
 .nav-links a { font-weight: 500; font-size: .96rem; color: var(--ink); position: relative; padding: .35em 0; transition: color .2s; white-space: nowrap; }
 .nav-links a::after {
