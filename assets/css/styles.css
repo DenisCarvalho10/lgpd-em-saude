@@ -111,9 +111,9 @@ ul { margin: 0; padding: 0; list-style: none; }
   .site-header { background: rgba(255, 255, 255, .92); backdrop-filter: saturate(180%) blur(10px); }
 }
 .site-header.scrolled { box-shadow: var(--shadow-sm); background: rgba(255, 255, 255, .99); }
-.site-header .nav { display: flex; align-items: center; justify-content: space-between; gap: 1.2rem; min-height: 76px; }
+.site-header .nav { display: flex; align-items: center; justify-content: space-between; gap: 1.2rem; min-height: 88px; }
 .brand { flex: none; display: inline-flex; }
-.brand img { height: 50px; width: auto; max-width: none; }
+.brand img { height: 68px; width: auto; max-width: none; }
 .nav-links { display: flex; align-items: center; gap: 1.7rem; }
 .nav-links a { font-weight: 500; font-size: .96rem; color: var(--ink); position: relative; padding: .35em 0; transition: color .2s; white-space: nowrap; }
 .nav-links a::after {
@@ -400,7 +400,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .footer { background: var(--navy-deep); color: #aebccd; padding: 3.5rem 0 0; }
 .footer .grid { display: grid; grid-template-columns: 1.5fr .9fr 1.5fr 1.3fr; gap: 2.4rem; padding-bottom: 2.6rem; }
 .footer h4 { color: #fff; font-family: "Inter", sans-serif; font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 1.1rem; }
-.f-brand img { height: 52px; background: #fff; padding: 8px 12px; border-radius: 10px; margin-bottom: 1rem; }
+.f-brand img { height: 78px; background: #fff; padding: 10px 14px; border-radius: 12px; margin-bottom: 1rem; }
 .f-brand p { font-size: .92rem; max-width: 30ch; }
 .footer ul li { margin-bottom: .6rem; }
 .footer ul a { font-size: .93rem; transition: color .2s; }
@@ -526,6 +526,9 @@ ul { margin: 0; padding: 0; list-style: none; }
   .nav-toggle { display: flex; }
   .nav-cta .btn-text { display: none; }
   .nav-cta .btn { padding: .7em .9em; }
+  .site-header .nav { min-height: 70px; }
+  .brand img { height: 54px; }
+  .f-brand img { height: 64px; }
   .topbar .tb-center, .hide-sm { display: none; }
   .topbar .container { justify-content: space-between; }
   .cards-grid--3, .cards-grid--2 { grid-template-columns: 1fr; }
