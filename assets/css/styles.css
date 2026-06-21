@@ -615,23 +615,30 @@ body.nav-open .fab-stack { opacity: 0; visibility: hidden; pointer-events: none;
 .authority { display: grid; grid-template-columns: .85fr 1.15fr; gap: 3rem; align-items: center; }
 .book {
   position: relative; width: 100%; max-width: 320px; margin-inline: auto;
-  aspect-ratio: 3/4.2; border-radius: 6px 14px 14px 6px; overflow: hidden;
-  background: linear-gradient(135deg, var(--navy-2) 0%, var(--navy-deep) 100%);
-  box-shadow: var(--shadow-lg), inset 7px 0 14px rgba(0,0,0,.35);
-  color: #fff; padding: 2.2rem 1.7rem; display: flex; flex-direction: column; transform: rotate(-2deg);
-  transition: transform .5s var(--ease);
+  aspect-ratio: 3/4.3; border-radius: 5px 13px 13px 5px; overflow: hidden;
+  background:
+    radial-gradient(130% 90% at 78% 8%, rgba(255,255,255,.14), transparent 55%),
+    linear-gradient(135deg, #2a5c8f 0%, #1a4470 46%, #103056 100%);
+  border: 2px solid var(--gold);
+  box-shadow: 0 34px 64px rgba(0,0,0,.55), 0 0 0 1px rgba(201,162,75,.35), inset 0 0 34px rgba(201,162,75,.08);
+  color: #fff; padding: 2.4rem 1.8rem 2rem 2.5rem; display: flex; flex-direction: column;
+  transform: rotate(-2deg); transition: transform .5s var(--ease);
 }
 .book:hover { transform: rotate(0deg) translateY(-6px); }
-.book::after { content: ""; position: absolute; left: 12px; top: 0; bottom: 0; width: 2px; background: rgba(255,255,255,.12); }
-.book__tag { font-size: .68rem; letter-spacing: .18em; text-transform: uppercase; color: var(--gold-light); font-weight: 700; margin-bottom: 1.2rem; }
-.book__title { font-family: "Playfair Display", serif; font-size: 1.5rem; line-height: 1.18; margin-bottom: .8rem; }
+/* lombada dourada */
+.book::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 12px;
+  background: linear-gradient(var(--gold-light), var(--gold-dark)); box-shadow: inset -3px 0 7px rgba(0,0,0,.5); }
+/* brilho fino ao lado da lombada */
+.book::after { content: ""; position: absolute; left: 18px; top: 10px; bottom: 10px; width: 2px; background: rgba(255,255,255,.18); }
+.book__tag { font-size: .68rem; letter-spacing: .18em; text-transform: uppercase; color: var(--gold-light); font-weight: 700; margin-bottom: 1.3rem; }
+.book__title { font-family: "Playfair Display", serif; font-size: 1.75rem; line-height: 1.15; margin-bottom: .8rem; color: #ffffff; text-shadow: 0 2px 12px rgba(0,0,0,.45); }
 .book__title span { color: var(--gold-light); font-style: italic; }
-.book__rule { width: 44px; height: 3px; background: var(--gold); margin: .6rem 0 1rem; }
-.book__sub { font-size: .9rem; color: #c7d3e1; margin-top: auto; }
+.book__rule { width: 52px; height: 3px; background: var(--gold); margin: .7rem 0 1rem; }
+.book__sub { font-size: .9rem; color: #d6e0ee; margin-top: auto; }
 .book__sub strong { color: #fff; display: block; }
-.book__badge { position: absolute; right: -14px; bottom: 26px; background: var(--gold);
+.book__badge { position: absolute; right: 14px; bottom: 20px; background: linear-gradient(135deg, var(--gold-light), var(--gold));
   color: var(--navy-deep); font-weight: 800; font-size: .72rem; letter-spacing: .04em; padding: .5em .9em;
-  border-radius: 8px; box-shadow: var(--shadow); transform: rotate(2deg); }
+  border-radius: 8px; box-shadow: 0 6px 16px rgba(0,0,0,.45); }
 .authority__list { margin: 1.4rem 0 1.8rem; display: grid; gap: .85rem; }
 .authority__list li { display: flex; gap: .7rem; align-items: flex-start; color: #cdd8e6; }
 .authority__list svg { width: 22px; height: 22px; fill: var(--gold); flex: none; margin-top: 2px; }
