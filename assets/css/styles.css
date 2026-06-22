@@ -692,6 +692,11 @@ body.nav-open .fab-stack { opacity: 0; visibility: hidden; pointer-events: none;
 .cookie-modal__actions { display: flex; flex-wrap: wrap; gap: .7rem; margin-top: 1.5rem; }
 .cookie-modal__actions .btn { flex: 1; justify-content: center; min-width: 140px; }
 
+/* ---------- Redes sociais do rodapé com cores reais das marcas ---------- */
+.f-social a.soc-ig:hover { background: linear-gradient(45deg, #feda75 0%, #fa7e1e 28%, #d62976 60%, #962fbf 100%); }
+.f-social a.soc-li:hover { background: #0a66c2; }
+.f-social a.soc-ig:hover svg path, .f-social a.soc-li:hover svg path { fill: #fff; }
+
 /* ---------- Selo de autoridade (faixa UFG/TCC) ---------- */
 .credentials { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-top: 2rem; }
 .cred {
