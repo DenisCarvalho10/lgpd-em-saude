@@ -6,7 +6,7 @@
   "use strict";
 
   /* === Configurações === */
-  var WA_NUMBER = "5562992586422"; // WhatsApp (62) 99258-6422
+  var WA_NUMBER = "5562992565904"; // WhatsApp de atendimento (roteamento dos links)
 
   // E-book entregue ao preencher o formulário lateral
   var EBOOK_URL  = "assets/ebooks/guia-lgpd-na-saude.pdf";

@@ -31,12 +31,13 @@ Site LGPD/
 
 ## ☎️ Contatos usados no site
 
-- **WhatsApp / telefone principal (com link):** (62) 99258-6422 → `5562992586422`
+- **Número exibido (texto):** (62) 99258-6422
+- **WhatsApp / roteamento dos links:** `5562992565904` (todos os links `wa.me` apontam para cá)
 - **Telefone secundário (apenas texto, sem link):** (64) 99945-2151
 - **E-mail:** contato@deniscarvalhoadvocacia.com.br
 
 Para trocar o número de WhatsApp, altere `WA_NUMBER` em `assets/js/main.js` **e**
-os links `wa.me/5562992586422` espalhados pelo HTML (busque por `5562992586422`).
+os links `wa.me/5562992565904` espalhados pelo HTML (busque por `5562992565904`).
 
 ---
 
