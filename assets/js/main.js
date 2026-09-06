@@ -1,7 +1,7 @@
 /* ===================================================================
    AdvX — Atribuição de origem (UTM) · first-touch, 90 dias
-   Guarda de qual anúncio/campanha o visitante veio, para o AdvX medir
-   CPL/CAC por campanha. Não envia nada sozinho: só captura e expõe.
+   Guarda de qual anúncio/campanha o visitante veio e carrega esse código
+   nos links de WhatsApp, para a Liz registrar a origem no lead do CRM.
    Referência: docs/atribuicao-utm.md no repo do AdvX.
    =================================================================== */
 (function () {
@@ -13,6 +13,25 @@
     "utm_source", "utm_medium", "utm_campaign",
     "utm_content", "utm_term", "fbclid", "gclid"
   ];
+
+  function slug(v) {
+    return String(v || "")
+      .toLowerCase()
+      .replace(/[^a-z0-9-]+/g, "-")
+      .replace(/-+/g, "-")
+      .replace(/^-|-$/g, "")
+      .slice(0, 60);
+  }
+
+  /** Qual dos sites do escritório é este (usado quando não há campanha). */
+  function siteSlug() {
+    var h = String(location.hostname || "").replace(/^www\./, "");
+    if (h.indexOf("cobertura") >= 0) return "site-cobertura";
+    if (h.indexOf("odontologica") >= 0) return "site-odonto";
+    if (h.indexOf("lgpd") >= 0) return "site-lgpd";
+    if (h.indexOf("deniscarvalhoadvocacia") >= 0) return "site-institucional";
+    return "site";
+  }
 
   function daUrl() {
     var out = {};
@@ -58,30 +77,58 @@
     if (!salvo || novaOrigem) localStorage.setItem(KEY, JSON.stringify(dados));
   } catch (e) {}
 
-  // Disponível para o JS da página (ex.: montar link de WhatsApp ou POST).
+  // Disponível para o JS da página.
   window.ADVX_ATTRIB = dados;
 
   /**
-   * Código curto de rastreio, para viajar em texto (ex.: mensagem do WhatsApp).
-   * Ex.: "ig-cpc-medico-erro-setembro". Vazio se não houver origem de campanha.
+   * Código de origem que viaja na mensagem do WhatsApp. É a CHAVE DE JUNÇÃO:
+   * a Liz o grava como utm_campaign do lead, e ele precisa casar com
+   * campanhas.utm_campaign no AdvX.
+   * Ordem: campanha > origem > clique de anúncio > o site em si.
    */
   window.ADVX_REF = function () {
-    var p = [dados.utm_source, dados.utm_medium, dados.utm_campaign]
-      .filter(Boolean)
-      .join("-")
-      .toLowerCase()
-      .replace(/[^a-z0-9-]+/g, "-")
-      .replace(/-+/g, "-")
-      .replace(/^-|-$/g, "");
-    if (p) return p.slice(0, 60);
+    if (dados.utm_campaign) return slug(dados.utm_campaign);
+    if (dados.utm_source) return slug(dados.utm_source);
     if (dados.fbclid) return "meta";
     if (dados.gclid) return "google";
-    return "";
+    return siteSlug(); // visita orgânica: ao menos sabemos qual site converteu
   };
 
-  // Injeta os campos ocultos em <form data-advx-lead> (para formulários que
-  // um dia enviem a um backend). Hoje os formulários abrem o WhatsApp, então
-  // isto fica inerte — e correto quando o backend existir.
+  /**
+   * Acrescenta "#ref-<codigo>" ao texto de um link do WhatsApp.
+   * Monta na mão, com encodeURIComponent: o "#" PRECISA virar %23, senão o
+   * navegador o trata como fragmento e corta a URL.
+   */
+  window.ADVX_WA = function (url) {
+    try {
+      if (!url) return url;
+      if (url.indexOf("wa.me") < 0 && url.indexOf("api.whatsapp.com") < 0) return url;
+      if (url.indexOf("%23ref-") >= 0 || url.indexOf("#ref-") >= 0) return url; // já marcado
+      var ref = window.ADVX_REF();
+      if (!ref) return url;
+      var marca = encodeURIComponent("\n\n#ref-" + ref);
+      var i = url.indexOf("text=");
+      if (i < 0) return url + (url.indexOf("?") < 0 ? "?" : "&") + "text=" + marca;
+      var fim = url.indexOf("&", i);
+      return fim < 0 ? url + marca : url.slice(0, fim) + marca + url.slice(fim);
+    } catch (e) { return url; }
+  };
+
+  // Marca qualquer link de WhatsApp no momento do clique. Pega links que já
+  // estão na página, os que o React renderiza depois e os criados por script.
+  document.addEventListener("click", function (ev) {
+    try {
+      var alvo = ev.target;
+      if (!alvo || !alvo.closest) return;
+      var a = alvo.closest('a[href*="wa.me"], a[href*="api.whatsapp.com"]');
+      if (!a) return;
+      var novo = window.ADVX_WA(a.getAttribute("href"));
+      if (novo) a.setAttribute("href", novo);
+    } catch (e) {}
+  }, true);
+
+  // Injeta os campos ocultos em <form data-advx-lead> (para formulários que um
+  // dia enviem a um backend). Hoje os formulários abrem o WhatsApp.
   function injetar() {
     var forms = document.querySelectorAll("form[data-advx-lead]");
     for (var i = 0; i < forms.length; i++) {
@@ -124,7 +171,7 @@
   function $(s, ctx) { return (ctx || document).querySelector(s); }
   function $all(s, ctx) { return Array.prototype.slice.call((ctx || document).querySelectorAll(s)); }
 
-  function wa(msg) { return "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(msg); }
+  function wa(msg) { var u = "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(msg); return window.ADVX_WA ? window.ADVX_WA(u) : u; }
 
   /* ---------- Salvar lead (Web3Forms) ---------- */
   function salvarLead(nome, email, telefone) {
@@ -140,7 +187,9 @@
           nome: nome,
           email: email,
           telefone: telefone || "(não informado)",
-          material: EBOOK_NOME
+          material: EBOOK_NOME,
+          origem: (window.ADVX_REF ? window.ADVX_REF() : ""),
+          pagina: (window.ADVX_ATTRIB ? window.ADVX_ATTRIB.landing_page : "")
         })
       });
     } catch (e) {}
