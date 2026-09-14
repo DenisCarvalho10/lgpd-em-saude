@@ -326,7 +326,42 @@
     });
   }
 
+  /* ---------- LinkedIn Insight Tag (só com consentimento de marketing) ---------- */
+  var liLoaded = false;
+  function loadLinkedInInsight() {
+    if (liLoaded) return;
+    liLoaded = true;
+    window._linkedin_partner_id = "10882153";
+    window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+    window._linkedin_data_partner_ids.push("10882153");
+    (function (l) {
+      if (!l) { window.lintrk = function (a, b) { window.lintrk.q.push([a, b]); }; window.lintrk.q = []; }
+      var s = document.getElementsByTagName("script")[0];
+      var b = document.createElement("script");
+      b.type = "text/javascript"; b.async = true;
+      b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
+      s.parentNode.insertBefore(b, s);
+    })(window.lintrk);
+  }
+
   /* ---------- Gestão de cookies (banner + modal de preferências) ---------- */
+  // Injeta um banner simples nas páginas sem o HTML do banner (landing de anúncio).
+  if (!$("#cookieBanner")) {
+    var jaDecidiu = false;
+    try { jaDecidiu = !!localStorage.getItem("lgpdsaude_cookie_consent"); } catch (e) {}
+    if (!jaDecidiu) {
+      var ckInj = document.createElement("div");
+      ckInj.className = "cookie";
+      ckInj.id = "cookieBanner";
+      ckInj.innerHTML =
+        '<p>Usamos cookies para melhorar sua experiência e analisar o tráfego do site. Você pode aceitar todos ou recusar os não essenciais. Saiba mais na <a href="cookies.html">Política de Cookies</a>.</p>' +
+        '<div class="cookie__row">' +
+        '<button class="btn btn-gold" id="cookieAccept">Aceitar todos</button>' +
+        '<button class="btn btn-ghost" id="cookieReject">Recusar</button>' +
+        '</div>';
+      document.body.appendChild(ckInj);
+    }
+  }
   var cookie = $("#cookieBanner");
   var cookieAccept = $("#cookieAccept");
   var cookieReject = $("#cookieReject");
@@ -347,8 +382,9 @@
     } catch (e) {}
     if (cookie) cookie.classList.remove("show");
     if (cookieModal) cookieModal.classList.remove("show");
-    // Aqui podem ser disparados os scripts conforme o consentimento (ex.: Analytics)
-    // if (prefs.analytics) { /* carregar Google Analytics */ }
+    // Dispara os rastreadores conforme o consentimento. O LinkedIn Insight Tag
+    // é cookie de marketing.
+    if (prefs.marketing) loadLinkedInInsight();
   }
   function getPrefs() {
     try { return JSON.parse(localStorage.getItem(COOKIE_PREFS)) || {}; } catch (e) { return {}; }
@@ -364,6 +400,8 @@
   var hasConsent = false;
   try { hasConsent = !!localStorage.getItem(COOKIE_KEY); } catch (e) {}
   if (!hasConsent && cookie) setTimeout(function () { cookie.classList.add("show"); }, 1800);
+  // Já consentiu marketing antes: carrega o LinkedIn Insight Tag de imediato.
+  if (hasConsent && getPrefs().marketing) loadLinkedInInsight();
 
   if (cookieAccept) cookieAccept.addEventListener("click", function () { savePrefs({ essential: true, analytics: true, marketing: true }); });
   if (cookieReject) cookieReject.addEventListener("click", function () { savePrefs({ essential: true, analytics: false, marketing: false }); });
