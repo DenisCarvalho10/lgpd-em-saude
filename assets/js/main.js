@@ -14,7 +14,7 @@
   // Configurar a tag > "Instalar a tag manualmente" — copie o valor de
   // `send_to`, no formato "AW-18451711790/AbCdEfGhIjKlMnOp".
   // Enquanto estiver vazio nada dispara, e nada quebra.
-  var GADS_CONVERSAO_WHATSAPP = "";
+  var GADS_CONVERSAO_WHATSAPP = "AW-18451711790/zEIeCN2wkvgcEK6Ou95E";
 
   var CAMPOS = [
     "utm_source", "utm_medium", "utm_campaign",
