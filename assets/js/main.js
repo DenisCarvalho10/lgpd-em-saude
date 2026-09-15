@@ -344,6 +344,31 @@
     })(window.lintrk);
   }
 
+  /* ---------- Google Ads (gtag.js) — Consent Mode v2 ---------- */
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag("consent", "default", {
+    ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied",
+    analytics_storage: "denied", wait_for_update: 500
+  });
+  (function () {
+    var g = document.createElement("script");
+    g.async = true;
+    g.src = "https://www.googletagmanager.com/gtag/js?id=AW-18451711790";
+    document.head.appendChild(g);
+  })();
+  gtag("js", new Date());
+  gtag("config", "AW-18451711790");
+  function updateAdsConsent(prefs) {
+    prefs = prefs || {};
+    gtag("consent", "update", {
+      ad_storage: prefs.marketing ? "granted" : "denied",
+      ad_user_data: prefs.marketing ? "granted" : "denied",
+      ad_personalization: prefs.marketing ? "granted" : "denied",
+      analytics_storage: prefs.analytics ? "granted" : "denied"
+    });
+  }
+
   /* ---------- Gestão de cookies (banner + modal de preferências) ---------- */
   // Injeta um banner simples nas páginas sem o HTML do banner (landing de anúncio).
   if (!$("#cookieBanner")) {
@@ -385,6 +410,7 @@
     // Dispara os rastreadores conforme o consentimento. O LinkedIn Insight Tag
     // é cookie de marketing.
     if (prefs.marketing) loadLinkedInInsight();
+    updateAdsConsent(prefs);
   }
   function getPrefs() {
     try { return JSON.parse(localStorage.getItem(COOKIE_PREFS)) || {}; } catch (e) { return {}; }
@@ -402,6 +428,7 @@
   if (!hasConsent && cookie) setTimeout(function () { cookie.classList.add("show"); }, 1800);
   // Já consentiu marketing antes: carrega o LinkedIn Insight Tag de imediato.
   if (hasConsent && getPrefs().marketing) loadLinkedInInsight();
+  if (hasConsent) updateAdsConsent(getPrefs());
 
   if (cookieAccept) cookieAccept.addEventListener("click", function () { savePrefs({ essential: true, analytics: true, marketing: true }); });
   if (cookieReject) cookieReject.addEventListener("click", function () { savePrefs({ essential: true, analytics: false, marketing: false }); });
