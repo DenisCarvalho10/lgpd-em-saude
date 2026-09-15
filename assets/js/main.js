@@ -9,9 +9,16 @@
 
   var KEY = "advx_attrib";
   var MAX_MS = 90 * 24 * 60 * 60 * 1000; // first-touch vale 90 dias
+  // Rótulo da ação de conversão "Clique no WhatsApp" do Google Ads.
+  // Onde achar: Google Ads > Metas > Conversões > "Clique no WhatsApp" >
+  // Configurar a tag > "Instalar a tag manualmente" — copie o valor de
+  // `send_to`, no formato "AW-18451711790/AbCdEfGhIjKlMnOp".
+  // Enquanto estiver vazio nada dispara, e nada quebra.
+  var GADS_CONVERSAO_WHATSAPP = "";
+
   var CAMPOS = [
     "utm_source", "utm_medium", "utm_campaign",
-    "utm_content", "utm_term", "fbclid", "gclid"
+    "utm_content", "utm_term", "fbclid", "gclid", "li_fat_id"
   ];
 
   function slug(v) {
@@ -91,6 +98,7 @@
     if (dados.utm_source) return slug(dados.utm_source);
     if (dados.fbclid) return "meta";
     if (dados.gclid) return "google";
+    if (dados.li_fat_id) return "linkedin";
     return siteSlug(); // visita orgânica: ao menos sabemos qual site converteu
   };
 
@@ -114,6 +122,31 @@
     } catch (e) { return url; }
   };
 
+  /**
+   * Dispara a conversão de clique no WhatsApp para o Google Ads.
+   *
+   * Empurra direto no dataLayer em vez de chamar gtag(): nos sites estáticos a
+   * função gtag() vive dentro de outro IIFE e não é visível aqui; window.dataLayer
+   * é global nos quatro. Push de um objeto `arguments` (não de um array) é o que
+   * o gtag.js espera.
+   *
+   * Não usamos event_callback com redirect: os links de WhatsApp abrem em nova
+   * aba (target="_blank"), então a página não navega e o ping não é cortado.
+   *
+   * Consent Mode v2 cuida do resto — com consentimento negado o Google envia
+   * ping sem cookie (conversão modelada), então NÃO se deve condicionar isto ao
+   * aceite do banner.
+   */
+  function conversaoWhatsApp() {
+    if (!GADS_CONVERSAO_WHATSAPP) return;
+    try {
+      window.dataLayer = window.dataLayer || [];
+      (function () { window.dataLayer.push(arguments); })(
+        "event", "conversion", { send_to: GADS_CONVERSAO_WHATSAPP },
+      );
+    } catch (e) {}
+  }
+
   // Marca qualquer link de WhatsApp no momento do clique. Pega links que já
   // estão na página, os que o React renderiza depois e os criados por script.
   document.addEventListener("click", function (ev) {
@@ -124,6 +157,7 @@
       if (!a) return;
       var novo = window.ADVX_WA(a.getAttribute("href"));
       if (novo) a.setAttribute("href", novo);
+      conversaoWhatsApp();
     } catch (e) {}
   }, true);
 
