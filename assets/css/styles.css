@@ -113,7 +113,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .site-header.scrolled { box-shadow: var(--shadow-sm); background: linear-gradient(rgba(253,250,244,.25),rgba(253,250,244,.25)),url(../img/marmore.jpg?v=4) center/cover; }
 .site-header .nav { display: flex; align-items: center; justify-content: space-between; gap: 1.2rem; min-height: 86px; }
 .brand { flex: none; display: inline-flex; }
-.brand img { height: 54px; width: auto; max-width: none; object-fit: contain; }
+.brand img { height: 58px; width: auto; max-width: none; object-fit: contain; }
 .nav-links { display: flex; align-items: center; gap: 1.7rem; }
 .nav-links a { font-weight: 500; font-size: .96rem; color: var(--ink); position: relative; padding: .35em 0; transition: color .2s; white-space: nowrap; }
 .nav-links a::after {
@@ -527,7 +527,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   .nav-cta .btn-text { display: none; }
   .nav-cta .btn { padding: .7em .9em; }
   .site-header .nav { min-height: 78px; }
-  .brand img { height: 52px; }
+  .brand img { height: 56px; }
   .f-brand img { height: 80px; }
   .topbar .tb-center, .hide-sm { display: none; }
   .topbar .container { justify-content: space-between; }
