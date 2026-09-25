@@ -722,3 +722,10 @@ body.nav-open .fab-stack { opacity: 0; visibility: hidden; pointer-events: none;
   .timeline::before { left: 23px; }
   .cookie-modal__actions .btn { flex: 1 1 100%; }
 }
+
+/* Capa do artigo (banco de imagens) */
+.post .thumb img { position: absolute; inset: 0; }
+.article-cover { max-width: 900px; margin: -1.6rem auto 0; padding: 0 1.5rem; }
+.article-cover figure { margin: 0; }
+.article-cover img { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: 14px; box-shadow: 0 20px 55px rgba(0,0,0,.28); display: block; }
+.article-cover figcaption { font-size: .72rem; color: #8a94a3; text-align: right; margin-top: .5rem; }
