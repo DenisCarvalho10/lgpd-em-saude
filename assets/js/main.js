@@ -207,8 +207,23 @@
 
   function wa(msg) { var u = "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(msg); return window.ADVX_WA ? window.ADVX_WA(u) : u; }
 
+  /* ---------- Encaminha o lead ao CRM do ViviJus.IA ---------- */
+  function enviarLeadVivjus(nome, email, telefone) {
+    try {
+      var dv = { nome: nome, email: email, telefone: telefone || "", website: "",
+        area: "lgpd", origem: "E-book: Guia LGPD na Saude (site lgpd)" };
+      var cb = document.getElementById("leadConsent");
+      if (cb) { dv.consentimento = !!cb.checked; dv.consentimento_texto = "Aceite LGPD no formulario do e-book (site lgpd)"; }
+      var av = window.ADVX_ATTRIB || {};
+      ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "landing_page", "referrer", "fbclid", "gclid"]
+        .forEach(function (k) { if (av[k]) dv[k] = av[k]; });
+      fetch("https://www.vivjus.com.br/api/lead-site", { method: "POST", headers: { "content-type": "text/plain;charset=UTF-8" }, body: JSON.stringify(dv), keepalive: true, mode: "cors" }).catch(function () {});
+    } catch (e) {}
+  }
+
   /* ---------- Salvar lead (Web3Forms) ---------- */
   function salvarLead(nome, email, telefone) {
+    enviarLeadVivjus(nome, email, telefone);
     if (!LEAD_FORM_ACCESS_KEY) return;
     try {
       fetch("https://api.web3forms.com/submit", {
